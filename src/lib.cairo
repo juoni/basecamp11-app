@@ -1,5 +1,5 @@
 #[starknet::interface]
-trait ICounter<T> {
+pub trait ICounter<T> {
     fn get_counter(self: @T) -> u32;
     fn increase_counter(ref self: T);
     fn decrease_counter(ref self: T);
@@ -8,9 +8,9 @@ trait ICounter<T> {
 
 
 #[starknet::contract]
-mod Counter {
+pub mod Counter {
    
-    //use OwnableComponent::InternalTrait;
+
 use super::ICounter;
     use openzeppelin_access::ownable::OwnableComponent;
     use starknet::ContractAddress;
@@ -23,7 +23,7 @@ use super::ICounter;
     impl InternalImpl = OwnableComponent::InternalImpl<ContractState>;
 
     #[storage]
-    struct Storage {
+   pub struct Storage {
         counter: u32,
         #[substorage(v0)]
         ownable: OwnableComponent::Storage
@@ -39,13 +39,13 @@ use super::ICounter;
     }
 
     #[derive(Drop, starknet::Event)]
-    struct CounterIncreased {
-        counter:u32
+     pub struct CounterIncreased {
+        pub counter:u32
     }
 
     #[derive(Drop, starknet::Event)]
-    struct CounterDecreased {
-        counter:u32
+    pub struct CounterDecreased {
+        pub counter:u32
     }
 
     //errors
